@@ -1,0 +1,6 @@
+
+path: dataset
+train: images/train
+val: images/val
+nc: 2  # 替换为你需要识别的类别数量
+names: ['target_type_A', 'target_type_B']  # 替换为你的类别名称

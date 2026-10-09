@@ -1,0 +1,3 @@
+from DrissionPage import ChromiumPage
+page=ChromiumPage()
+page.get('https://s.taobao.com/search?_input_charset=utf-8&clientPreloadId=preload_1787298378128&commend=all&ie=utf8&initiative_id=tbindexz_20170306&preLoadOrigin=https%3A%2F%2Fwww.taobao.com&q=%25E5%2596%259C%25E7%25BE%258A%25E7%25BE%258A%25E4%25B8%258E%25E7%2581%25B0%25E5%25A4%25AA%25E7%258B%25BC&search_type=item&source=suggest&sourceId=tb.index&spm=a21bo.jianhua%2Fa.search_history.d1&ssid=s5-e&suggest_query=&tab=all&wq=')
