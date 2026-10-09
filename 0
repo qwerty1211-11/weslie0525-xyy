@@ -1,0 +1,143 @@
+============================================================
+校园跑自动化 V2.0 — 手机诊断报告
+生成时间: 2026-09-23 20:36:36
+设备序列号: 10AD3P0298003QF
+============================================================
+
+── 设备型号 (getprop ro.product.model) ──
+[OK] V2230A
+
+── 设备品牌 (getprop ro.product.brand) ──
+[OK] vivo
+
+── Android版本 (getprop ro.build.version.release) ──
+[OK] 13
+
+── SDK版本 (getprop ro.build.version.sdk) ──
+[OK] 33
+
+── SELinux (getenforce) ──
+[OK] Enforcing
+
+── Mock Location (settings get secure mock_location) ──
+[OK] 0
+
+── Mock App (settings get secure mock_location_app) ──
+[OK] null
+
+── Location Mode (settings get secure location_mode) ──
+[OK] 3
+
+── Location Providers (cmd location providers list) ──
+[FAIL] Unknown command: list
+
+── 最后GPS位置 (dumpsys location | grep -i 'last location' -A5) ──
+[OK] last location=Location[network M:0,0,66,-19 hAcc=30.0 et=+1d17h13m41s575ms {Bundle[{resubtype=3, ori_et=148421460, retype=-5, source=com.amap.android.location, adiu=vbfdif8cdf55892gc66h59fbebc287, amap=1, type=new, rdesc=, timev=1790166986147, vivoUid=10049, con_scenario=-1}]} {Bundle[{resubtype=3, ori_et=148421460, retype=-5, source=com.amap.android.location, adiu=vbfdif8cdf55892gc66h59fbebc287, amap=1, type=new, rdesc=, timev=1790166986147, vivoUid=10049, con_scenario=-1}]}]
+      enabled=true
+      allowed=true
+      identity=1000/android[LocationService]
+      properties=ProviderProperties[powerUsage=Low, accuracy=Fine]
+    network provider:
+--
+      last location=Location[network M:0,0,66,-19 hAcc=30.0 et=+1d17h13m41s575ms {Bundle[{resubtype=3, ori_et=148421460, retype=-5, source=com.amap.android.location, adiu=vbfdif8cdf55892gc66h59fbebc287, amap=1, type=new, rdesc=, timev=1790166986147, vivoUid=10049, con_scenario=-1}]} {Bundle[{resubtype=3, ori_et=148421460, retype=-5, source=com.amap.android.location, adiu=vbfdif8cdf55892gc66h59fbebc287, amap=1, type=new, rdesc=, timev=1790166986147, vivoUid=10049, con_scenario=-1}]}]
+      enabled=true
+      allowed=true
+      identity=1000/com.vivo.multinlp
+      properties=ProviderProperties[powerUsage=Low, accuracy=Coarse, requires=network, supports=[bearing,speed,altitude]]
+      stationary throttled=false (not idle)
+--
+      last location=null
+      enabled=true
+      allowed=true
+      identity=1000/com.android.location.fused
+      properties=ProviderProperties[powerUsage=Low, accuracy=Fine, supports=[bearing,speed,altitude]]
+      stationary throttled=false (not idle)
+--
+      last location=Location[gps M:0,0,-1294,-442 hAcc=182.1 et=+1d17h7m26s932ms alt=183.5 vAcc=94.2 vel=0.0 sAcc=3.7 bear=0.0 bAcc=105.8 {Bundle[{satellites=3, maxCn0=24, meanCn0=20}]} {Bundle[{satellites=3, maxCn0=24, meanCn0=20}]}]
+      enabled=true
+      allowed=true
+      identity=1000/android[GnssService]
+      properties=ProviderProperties[powerUsage=High, accuracy=Fine, requires=satellite, supports=[bearing,speed,altitude]]
+      stationary throttled=false (not idle)
+
+── Fused状态 (dumpsys location | grep -i 'fused' -A3) ──
+[OK] 10161/com.google.android.gms[fused_location_provider]/158CCFC0 {bg} Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10161 com.google.android.gms}]
+        1001/com.vivo.devicereg/E9873F88 Request[PASSIVE, minUpdateInterval=+5m0s0ms, minUpdateDistance=200.0, WorkSource{1001 com.vivo.devicereg}]
+        10049/com.amap.android.location/5FE5D6D5 {bg} Request[PASSIVE, minUpdateInterval=0, WorkSource{10049 com.amap.android.location}]
+        1000/com.vivo.aiengine/4C6D044F Request[PASSIVE, minUpdateInterval=+2s0ms, WorkSource{1000 com.vivo.aiengine}]
+--
+    fused provider:
+      service: ProviderRequest[OFF]
+      last location=null
+      enabled=true
+--
+      identity=1000/com.android.location.fused
+      properties=ProviderProperties[powerUsage=Low, accuracy=Fine, supports=[bearing,speed,altitude]]
+      stationary throttled=false (not idle)
+      target service=1000/com.android.location.fused/.FusedLocationService@0
+      connected=true
+    gps provider:
+      service: ProviderRequest[@+900ms, HIGH_ACCURACY, WorkSource{10245 com.lptiyu.tanke}]
+--
+    fused provider:
+      nothing
+    gps provider:
+      nothing
+--
+      10161/com.google.android.gms[fused_location_provider]: min/max interval = passive/passive, total/active/foreground duration = +1h23m47s664ms/+1h23m47s660ms/+52s446ms, locations = 697
+      1000/com.vivo.aiengine: min/max interval = passive/passive, total/active/foreground duration = +1d17h13m24s468ms/+1d17h13m24s466ms/+1d17h13m24s467ms, locations = 2250
+      10049/com.amap.android.location: min/max interval = passive/passive, total/active/foreground duration = +1d17h13m9s745ms/+1d17h13m9s723ms/0, locations = 1020
+      1000/com.vivo.multinlp: min/max interval = passive/passive, total/active/foreground duration = +1d17h13m13s621ms/+1d17h13m13s613ms/+1d17h13m13s614ms, locations = 4080
+--
+        10161/com.google.android.gms[fused_location_provider]/F1C24CD1 {bg}
+    Measurements Provider:
+      service: unregistered
+    Navigation Message Provider:
+--
+    09-23 19:12:49.113: passive provider +registration 10161/com.google.android.gms[fused_location_provider]/158CCFC0 -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10161 com.google.android.gms}]
+    09-23 19:12:49.407: passive provider +registration 10161/com.google.android.gms[network_location_provider]/671D5AFA -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10161 com.google.android.gms}]
+    09-23 19:15:21.438: gps provider +registration 10207/com.lptiyu.tanke/5E70CE4D -> Request[@+900ms HIGH_ACCURACY, WorkSource{10207 com.lptiyu.tanke}]
+    09-23 19:15:21.445: gps provider request = ProviderRequest[@+900ms, HIGH_ACCURACY, WorkSource{10207 com.lptiyu.tanke}]
+--
+    09-23 20:35:46.267: passive provider delivered location[1] to 10161/com.google.android.gms[fused_location_provider]/158CCFC0
+    09-23 20:35:46.271: passive provider delivered location[1] to 10049/com.amap.android.location/5FE5D6D5
+    09-23 20:35:46.272: passive provider delivered location[1] to 1000/com.vivo.aiengine/4C6D044F
+    09-23 20:35:46.273: passive provider delivered location[1] to 1000/android[GnssService]/BD4E801E
+--
+    09-23 20:35:56.263: passive provider delivered location[1] to 10161/com.google.android.gms[fused_location_provider]/158CCFC0
+    09-23 20:35:56.264: passive provider delivered location[1] to 10049/com.amap.android.location/5FE5D6D5
+    09-23 20:35:56.265: passive provider delivered location[1] to 1000/com.vivo.aiengine/4C6D044F
+    09-23 20:35:56.266: passive provider delivered location[1] to 1000/android[GnssService]/BD4E801E
+--
+    09-23 20:36:06.777: passive provider delivered location[1] to 10161/com.google.android.gms[fused_location_provider]/158CCFC0
+    09-23 20:36:06.779: passive provider delivered location[1] to 10049/com.amap.android.location/5FE5D6D5
+    09-23 20:36:06.780: passive provider delivered location[1] to 1000/com.vivo.aiengine/4C6D044F
+    09-23 20:36:06.782: passive provider delivered location[1] to 1000/android[GnssService]/BD4E801E
+--
+    09-23 20:36:16.269: passive provider delivered location[1] to 10161/com.google.android.gms[fused_location_provider]/158CCFC0
+    09-23 20:36:16.270: network provider delivered location[1] to 1000/android[GnssService]/9E390CD6
+    09-23 20:36:16.272: passive provider delivered location[1] to 10049/com.amap.android.location/5FE5D6D5
+    09-23 20:36:16.273: passive provider delivered location[1] to 1000/com.vivo.aiengine/4C6D044F
+--
+    09-23 20:36:26.277: passive provider delivered location[1] to 10161/com.google.android.gms[fused_location_provider]/158CCFC0
+    09-23 20:36:26.279: passive provider delivered location[1] to 10049/com.amap.android.location/5FE5D6D5
+    09-23 20:36:26.280: passive provider delivered location[1] to 1000/com.vivo.aiengine/4C6D044F
+    09-23 20:36:26.281: passive provider delivered location[1] to 1000/android[GnssService]/BD4E801E
+--
+    09-23 20:36:36.727: passive provider delivered location[1] to 10161/com.google.android.gms[fused_location_provider]/158CCFC0
+    09-23 20:36:36.729: passive provider delivered location[1] to 10049/com.amap.android.location/5FE5D6D5
+    09-23 20:36:36.730: passive provider delivered location[1] to 1000/com.vivo.aiengine/4C6D044F
+    09-23 20:36:36.730: passive provider delivered location[1] to 1000/android[GnssService]/BD4E801E
+
+── 是否Root (su -c 'id') ──
+[FAIL] /system/bin/sh: su: inaccessible or not found
+
+── 全部权限(安全) (settings list secure | grep -i mock) ──
+[OK] allow_mock_location=1
+mock_gps_location=41.6872,123.6306
+mock_location=0
+mock_location_app=null
+
+── 乐跑包列表 (pm list packages | grep -iE 'lebao|lebu|lepao|sunshine|campusrun') ──
+[FAIL] (无输出)
+

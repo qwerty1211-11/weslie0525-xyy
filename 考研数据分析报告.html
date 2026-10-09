@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研数据智能分析报告</title>
+<style>
+  :root {
+    --bg: #F6F8FB;
+    --card-bg: #FFFFFF;
+    --text: #1E293B;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    --primary: #4F46E5;
+    --primary-light: #EEF2FF;
+    --chongci: #EA580C;
+    --chongci-bg: #FFF7ED;
+    --chongci-border: #FED7AA;
+    --wentuo: #2563EB;
+    --wentuo-bg: #EFF6FF;
+    --wentuo-border: #BFDBFE;
+    --baodi: #059669;
+    --baodi-bg: #ECFDF5;
+    --baodi-border: #A7F3D0;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- Header ---- */
+  .header {
+    background: linear-gradient(135deg, #312E81 0%, #4F46E5 50%, #6366F1 100%);
+    color: #fff;
+    padding: 36px 32px 32px;
+    text-align: center;
+  }
+  .header-icon { font-size: 40px; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; letter-spacing: 0.5px; }
+  .header .subtitle { font-size: 13px; opacity: 0.7; margin-top: 6px; }
+
+  /* ---- Container ---- */
+  .container { max-width: 960px; margin: 0 auto; padding: 28px 20px 48px; }
+
+  /* ---- Overview Cards ---- */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 1;
+  }
+  .ov-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .ov-card .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .ov-card .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .ov-card .value.score { color: var(--primary); font-size: 28px; }
+
+  /* ---- Section ---- */
+  .section { margin-top: 28px; }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    padding-left: 14px;
+    border-left: 3px solid var(--primary);
+  }
+
+  /* ---- Card ---- */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  /* ---- Prediction Card ---- */
+  .prediction-card {
+    background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    border: 1px solid #C7D2FE;
+  }
+  .prediction-card .year-tag {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .prediction-card .pred-score {
+    font-size: 48px;
+    font-weight: 800;
+    color: #312E81;
+    line-height: 1;
+  }
+  .prediction-card .pred-reason {
+    font-size: 14px;
+    color: #4338CA;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  /* ---- History Table ---- */
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  table th {
+    background: #F1F5F9;
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  table td {
+    padding: 10px 14px;
+    text-align: center;
+    border-bottom: 1px solid #F1F5F9;
+    white-space: nowrap;
+  }
+  table tbody tr:hover { background: #FAFBFC; }
+
+  /* ---- Recommend Row ---- */
+  .rec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .rec-card {
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid transparent;
+  }
+  .rec-card.chongci {
+    background: var(--chongci-bg);
+    border-color: var(--chongci-border);
+  }
+  .rec-card.wentuo {
+    background: var(--wentuo-bg);
+    border-color: var(--wentuo-border);
+  }
+  .rec-card.baodi {
+    background: var(--baodi-bg);
+    border-color: var(--baodi-border);
+  }
+  .rec-card .rec-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .rec-card.chongci .rec-tag {
+    background: var(--chongci);
+    color: #fff;
+  }
+  .rec-card.wentuo .rec-tag {
+    background: var(--wentuo);
+    color: #fff;
+  }
+  .rec-card.baodi .rec-tag {
+    background: var(--baodi);
+    color: #fff;
+  }
+  .rec-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .rec-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .rec-item .ri-school { font-weight: 600; color: var(--text); }
+  .rec-item .ri-major { color: var(--text-secondary); font-size: 12px; }
+  .rec-item .ri-score { font-weight: 600; font-size: 13px; }
+  .rec-item .ri-year  { color: var(--text-muted); font-size: 11px; }
+  .rec-card.chongci .ri-score { color: var(--chongci); }
+  .rec-card.wentuo .ri-score { color: var(--wentuo); }
+  .rec-card.baodi .ri-score { color: var(--baodi); }
+
+  /* ---- Advice Card ---- */
+  .advice-card {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .advice-card .advice-icon { font-size: 22px; flex-shrink: 0; }
+  .advice-card .advice-text { font-size: 15px; color: #92400E; line-height: 1.7; }
+
+  /* ---- Empty State ---- */
+  .empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 32px 16px;
+    font-size: 14px;
+  }
+
+  /* ---- Footer ---- */
+  .footer {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 700px) {
+    .overview { grid-template-columns: 1fr; }
+    .rec-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 20px; }
+    .prediction-card .pred-score { font-size: 36px; }
+  }
+
+  /* ---- Print ---- */
+  @media print {
+    body { background: #fff; }
+    .header { background: #4F46E5 !important; -webkit-print-color-adjust: exact; }
+    .card, .rec-card, .prediction-card, .advice-card, .ov-card {
+      box-shadow: none; break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== Header ====== -->
+<div class="header">
+  <div class="header-icon">🎓</div>
+  <h1>考研数据智能分析报告</h1>
+</div>
+
+<div class="container">
+
+  <!-- ====== 概览卡片 ====== -->
+  <div class="overview">
+    <div class="ov-card">
+      <div class="label">目标院校</div>
+      <div class="value">浙江大学</div>
+    </div>
+    <div class="ov-card">
+      <div class="label">目标专业</div>
+      <div class="value">会计</div>
+    </div>
+    <div class="ov-card">
+      <div class="label">预估分数</div>
+      <div class="value score">300 分</div>
+    </div>
+  </div>
+
+  <!-- ====== AI 预测 ====== -->
+  <div class="section">
+    <div class="section-title">🤖 AI 预测结果</div>
+    <div class="prediction-card">
+      <div class="year-tag">明年预测</div>
+      <div class="pred-score">375<span style="font-size:20px;font-weight:500;"> 分</span></div>
+      <div class="pred-reason">（理由：近四年分数线呈高位波动，结合趋势与竞争强度预估）</div>
+    </div>
+  </div>
+
+  <!-- ====== 历年分数线 ====== -->
+  <div class="section">
+    <div class="section-title">📊 浙江大学 · 会计 历年分数线</div>
+    <div class="card"><div class="empty-state">暂无历年数据</div></div>
+  </div>
+
+  <!-- ====== 院校推荐 ====== -->
+  <div class="section">
+    <div class="section-title">🏫 院校匹配推荐</div>
+    <div class="rec-grid">
+      <div class="rec-card chongci">
+      <div class="rec-tag">🔥 冲刺</div>
+      <div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">对外经济贸易大学 <span class="ri-major">| 会计学</span></div>
+            <div><span class="ri-score">381.5分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">北京科技大学 <span class="ri-major">| 会计学</span></div>
+            <div><span class="ri-score">367.5分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">北京交通大学 <span class="ri-major">| 会计学</span></div>
+            <div><span class="ri-score">366.7分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">北京化工大学 <span class="ri-major">| 会计学</span></div>
+            <div><span class="ri-score">346.8分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">中国政法大学 <span class="ri-major">| 会计学</span></div>
+            <div><span class="ri-score">343.5分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item"><span style="color:#94A3B8;font-size:12px;">… 还有 1 所</span></div>
+    </div>
+      <div class="rec-card wentuo">
+      <div class="rec-tag">📌 稳妥</div>
+      <div class="empty-state">暂无匹配</div>
+    </div>
+      <div class="rec-card baodi">
+      <div class="rec-tag">✅ 保底</div>
+      <div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">北京大学 <span class="ri-major">| 会计</span></div>
+            <div><span class="ri-score">257.5分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">北京师范大学 <span class="ri-major">| 会计</span></div>
+            <div><span class="ri-score">244.0分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">中国人民大学 <span class="ri-major">| 会计</span></div>
+            <div><span class="ri-score">242.2分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">中国农业大学 <span class="ri-major">| 会计</span></div>
+            <div><span class="ri-score">236.2分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item" style="opacity:0.8;">
+            <div class="ri-school">北京交通大学 <span class="ri-major">| 会计</span></div>
+            <div><span class="ri-score">224.6分</span> <span class="ri-year">（历年平均）</span></div>
+          </div><div class="rec-item"><span style="color:#94A3B8;font-size:12px;">… 还有 4 所</span></div>
+    </div>
+    </div>
+  </div>
+
+  <!-- ====== AI 建议 ====== -->
+  <div class="section">
+      <div class="section-title">💡 AI 备考建议</div>
+      <div class="advice-card">
+        <span class="advice-icon">📋</span>
+        <span class="advice-text">冲刺目标需强化专业课提分，保底院校确保过线即可。</span>
+      </div>
+    </div>
+
+</div>
+
+<div class="footer">
+  考研数据智能分析系统 · 数据仅供参考，请以官方发布为准
+</div>
+
+</body>
+</html>
